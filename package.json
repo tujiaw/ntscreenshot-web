@@ -1,0 +1,1 @@
+{"name":"ntscreenshot-web","version":"1.0.0","private":true,"type":"module","scripts":{"dev":"node scripts/serve.mjs","check":"node scripts/check.mjs","deploy":"wrangler deploy"},"devDependencies":{"agent-browser":"^0.38.2","wrangler":"^4.0.0"}}

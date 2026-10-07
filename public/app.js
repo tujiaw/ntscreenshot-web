@@ -13,13 +13,11 @@ story.addEventListener('scroll',()=>{clearTimeout(scrollTimer);scrollTimer=setTi
 window.addEventListener('resize',()=>{story.scrollTo({left:activeSlide*story.clientWidth,behavior:'instant'});});
 const rotationButton=document.querySelector('#slide-rotation');
 const motionPreference=matchMedia('(prefers-reduced-motion: reduce)');
-let rotationPaused=motionPreference.matches,hoverPaused=false,keyboardPaused=false,inView=false,rotationTimer;
-function scheduleRotation(){clearTimeout(rotationTimer);if(rotationPaused||hoverPaused||keyboardPaused||!inView||document.hidden||dialog.open)return;rotationTimer=setTimeout(()=>goToSlide(activeSlide+1),5000);}
+let rotationPaused=motionPreference.matches,keyboardPaused=false,inView=false,rotationTimer;
+function scheduleRotation(){clearTimeout(rotationTimer);if(rotationPaused||keyboardPaused||!inView||document.hidden||dialog.open)return;rotationTimer=setTimeout(()=>goToSlide(activeSlide+1),5000);}
 function updateRotationButton(){rotationButton.textContent=rotationPaused?'播放':'暂停';rotationButton.setAttribute('aria-label',rotationPaused?'开始自动切换产品界面':'暂停自动切换产品界面');rotationButton.setAttribute('aria-pressed',String(!rotationPaused));scheduleRotation();}
 rotationButton.addEventListener('click',()=>{rotationPaused=!rotationPaused;updateRotationButton();});
 const showcase=document.querySelector('.features');
-showcase.addEventListener('pointerenter',event=>{if(event.pointerType==='mouse'){hoverPaused=true;scheduleRotation();}});
-showcase.addEventListener('pointerleave',()=>{hoverPaused=false;scheduleRotation();});
 showcase.addEventListener('focusin',event=>{keyboardPaused=event.target.matches(':focus-visible');scheduleRotation();});
 showcase.addEventListener('focusout',event=>{if(!showcase.contains(event.relatedTarget)){keyboardPaused=false;scheduleRotation();}});
 new IntersectionObserver(entries=>{inView=entries[0].isIntersecting;scheduleRotation();},{threshold:.15}).observe(story);

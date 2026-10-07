@@ -1,4 +1,5 @@
 const dialog=document.querySelector('#image-dialog');
+fetch('https://api.github.com/repos/tujiaw/ntscreenshot',{signal:AbortSignal.timeout(6500)}).then(response=>{if(!response.ok)throw Error('GitHub unavailable');return response.json()}).then(repo=>{if(!Number.isSafeInteger(repo.stargazers_count)||repo.stargazers_count<0)return;document.querySelectorAll('.star-count').forEach(count=>{count.textContent=new Intl.NumberFormat('en-US').format(repo.stargazers_count);count.hidden=false;count.setAttribute('aria-label',`${repo.stargazers_count} stars`)});}).catch(()=>{});
 const story=document.querySelector('.product-story');
 const slideButtons=[...document.querySelectorAll('[data-slide]')];
 const prev=document.querySelector('#slide-prev'),next=document.querySelector('#slide-next');

@@ -14,7 +14,7 @@ window.addEventListener('resize',()=>{story.scrollTo({left:activeSlide*story.cli
 const rotationButton=document.querySelector('#slide-rotation');
 const motionPreference=matchMedia('(prefers-reduced-motion: reduce)');
 let rotationPaused=motionPreference.matches,keyboardPaused=false,inView=false,rotationTimer;
-function scheduleRotation(){clearTimeout(rotationTimer);if(rotationPaused||keyboardPaused||!inView||document.hidden||dialog.open)return;rotationTimer=setTimeout(()=>goToSlide(activeSlide+1),5000);}
+function scheduleRotation(){clearTimeout(rotationTimer);if(rotationPaused||keyboardPaused||!inView||document.hidden||dialog.open)return;rotationTimer=setTimeout(()=>goToSlide(activeSlide+1),3000);}
 function updateRotationButton(){rotationButton.textContent=rotationPaused?'播放':'暂停';rotationButton.setAttribute('aria-label',rotationPaused?'开始自动切换产品界面':'暂停自动切换产品界面');rotationButton.setAttribute('aria-pressed',String(!rotationPaused));scheduleRotation();}
 rotationButton.addEventListener('click',()=>{rotationPaused=!rotationPaused;updateRotationButton();});
 const showcase=document.querySelector('.features');
